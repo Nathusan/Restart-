@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Roll
+  - Strength
+  - Jump
   layers:
   - Default
   - TransparentFX
