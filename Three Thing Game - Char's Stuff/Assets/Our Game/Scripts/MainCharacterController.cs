@@ -17,11 +17,11 @@ public class MainCharacterController : MonoBehaviour
     public float strengthVal = 0f;
     public bool shape = false;
     public bool jumpBoost = false;
-    public float jumpVal = 5f;
+    public float jumpYVal = 5f;
+    public float jumpXVal = 5f;
     public bool jumpFix = false;
 
     Vector3 moveDir = Vector3.zero;
-    GameObject ball;
     CharacterController controller;
     Animator animate;
     Transform trans;
@@ -31,8 +31,6 @@ public class MainCharacterController : MonoBehaviour
         controller = GetComponent<CharacterController>(); //referncing character controller on player in Unity
         //animate = GetComponent<Animator>(); //referencing animator on player in Unity
         trans = GetComponent<Transform>();
-        ball = GameObject.FindGameObjectWithTag("PlayerBall");
-        ball.SetActive(false);
 
     }
 
@@ -52,7 +50,7 @@ public class MainCharacterController : MonoBehaviour
             }
             if (Input.GetKeyUp(KeyCode.W))
             {
-                animate.SetInteger("Condition", 0);
+                //animate.SetInteger("Condition", 0);
                 moveDir = new Vector3(0, 0, 0);
             }
 
@@ -94,7 +92,7 @@ public class MainCharacterController : MonoBehaviour
             {
                 if(jumpFix == false)
                 {
-                    moveDir = new Vector3(0, jumpVal, 0);
+                    moveDir = new Vector3(jumpXVal, jumpYVal, 0);
                     moveDir *= speed;
                     moveDir = transform.TransformDirection(moveDir);//sets transform from local space to world space
                     //animate.SetInteger("Condition", 5);             
@@ -122,11 +120,6 @@ public class MainCharacterController : MonoBehaviour
 
             if (shape == true)
             {
-                ball.transform.position = trans.position;
-                Vector3 temp = new Vector3(ball.transform.position.x, ball.transform.position.y + (trans.localScale.y / 2), ball.transform.position.z);
-                ball.transform.position = temp;
-                ball.SetActive(true);
-                gameObject.SetActive(false);
 
             }
 
@@ -156,8 +149,10 @@ public class MainCharacterController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Jump"))
         {
+            Debug.Log("Here");
             jumpBoost = true;
-            jumpVal += 7.5f;
+            jumpYVal += 20f;
+            jumpXVal += 7.5f;
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Cube"))

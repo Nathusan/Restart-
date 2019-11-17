@@ -679,8 +679,8 @@ GameObject:
   - component: {fileID: 1903895493}
   - component: {fileID: 1903895492}
   m_Layer: 0
-  m_Name: PlayerBall
-  m_TagString: Player
+  m_Name: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -809,5 +809,6 @@ MonoBehaviour:
   strengthVal: 0
   shape: 0
   jumpBoost: 0
-  jumpVal: 5
+  jumpYVal: 5
+  jumpXVal: 5
   jumpFix: 0
