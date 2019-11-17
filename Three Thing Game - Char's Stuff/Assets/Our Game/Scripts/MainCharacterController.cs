@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine;
 
 public class MainCharacterController : MonoBehaviour
@@ -17,6 +18,7 @@ public class MainCharacterController : MonoBehaviour
     public bool shape = false;
     public bool jumpBoost = false;
     public float jumpVal = 5f;
+    public bool jumpFix = false;
 
     Vector3 moveDir = Vector3.zero;
     GameObject ball;
@@ -31,12 +33,13 @@ public class MainCharacterController : MonoBehaviour
         trans = GetComponent<Transform>();
         ball = GameObject.FindGameObjectWithTag("PlayerBall");
         ball.SetActive(false);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ( gameObject.activeSelf == true)//if the character is touching the ground
+        if (gameObject.activeSelf == true)//if the character is touching the ground
         {
             //----------WALKING MOVEMENT AND ANIMATION (CONDITION 01)----------
             if (Input.GetKey(KeyCode.W))//If the 'w' key is being pressed
@@ -89,17 +92,27 @@ public class MainCharacterController : MonoBehaviour
             //----------JUMPING MOVEMENT AND ANIMATION (CONDITION 05)----------
             if (Input.GetKey(KeyCode.Space))//If the 'space' key is being pressed
             {
-                //animate.SetInteger("Condition", 5);
-                moveDir = new Vector3(0, jumpVal, 0);
-                moveDir *= speed;
-                moveDir = transform.TransformDirection(moveDir);//sets transform from local space to world space
+                if(jumpFix == false)
+                {
+                    moveDir = new Vector3(0, jumpVal, 0);
+                    moveDir *= speed;
+                    moveDir = transform.TransformDirection(moveDir);//sets transform from local space to world space
+                    //animate.SetInteger("Condition", 5);             
 
+                    jumpFix = true;
+                }
+               
             }
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 //animate.SetInteger("Condition", 0);
                 moveDir = new Vector3(0, 0, 0);
+                jumpFix = false;
             }
+
+
+
+
 
             //----------POWER UP 01 - STRENGTH----------
 
